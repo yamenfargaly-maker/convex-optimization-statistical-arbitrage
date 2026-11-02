@@ -1,0 +1,29 @@
+{
+  "source": "synthetic (statopt.simulate, calibrated to the screening paper)",
+  "panel_shape": [
+    2520,
+    300
+  ],
+  "train": [
+    130,
+    1259
+  ],
+  "test": [
+    1259,
+    2519
+  ],
+  "horizon_days": 10,
+  "alpha_model": "binned (train)",
+  "tuned": {
+    "risk_aversion": 0.5,
+    "tc_mult": 0.5
+  },
+  "best_tc_by_cost": {
+    "0.0": 4.0,
+    "1.0": 2.0,
+    "2.5": 0.5,
+    "5.0": 2.0,
+    "10.0": 1.0
+  },
+  "runtime_seconds": 1144.9
+}

@@ -1,0 +1,44 @@
+[    0s] panel 2975x1502; train 2015-07-10..2020-11-27; test 2020-11-27..2026-10-30
+[    4s] alpha models fit
+[  734s] train: best lam=64.0 tc=2.0 net SR 0.82 (threshold 0.74)
+[ 1838s] ablation done
+[ 2187s] cost sensitivity done
+[ 2536s] frontier done
+
+TRAIN GRID
+       strategy  sharpe_net  sharpe_gross  turnover_annual
+ lam=4.0 tc=1.0        0.75          1.25           134.53
+ lam=4.0 tc=2.0        0.59          0.85            72.31
+lam=16.0 tc=1.0        0.77          1.33           121.44
+lam=16.0 tc=2.0        0.79          1.09            64.08
+lam=64.0 tc=1.0        0.54          1.05            71.76
+lam=64.0 tc=2.0        0.82          1.11            37.02
+ Threshold rule        0.74          1.27           116.28
+
+OUT-OF-SAMPLE ABLATION (2.5 bps/leg)
+                                            sharpe_net  sharpe_gross  turnover_annual  breakeven_bps_per_leg  max_drawdown  ann_vol  ann_return_net  avg_positions  nw_tstat_net  solve_ms_per_day
+strategy                                                                                                                                                                                          
+Threshold rule (paper baseline)                   0.38          0.91           118.18                   4.33         -0.09     0.06            0.02         517.22          0.95              0.09
+Linear in alpha (no optimizer)                    0.05          0.73           159.20                   2.68         -0.15     0.06            0.00        1432.54          0.12              0.21
+Optimizer, cost-unaware (walk-forward)           -0.64          0.92           233.20                   1.47         -0.17     0.04           -0.02        1269.57         -1.54             70.74
+Optimizer + costs, static forecast                0.52          0.84            43.52                   6.56         -0.06     0.03            0.02        1371.48          1.25            127.51
+Optimizer + costs, walk-forward                   0.53          0.81            36.87                   7.12         -0.05     0.03            0.02        1392.79          1.26            122.50
+  walk-forward + Ledoit-Wolf cov                  0.53          0.81            12.78                   7.24         -0.01     0.01            0.01        1426.60          1.32            224.36
+  walk-forward + 50% daily turnover cap           0.53          0.81            36.95                   7.09         -0.05     0.03            0.02        1396.12          1.25            548.90
+  walk-forward + alpha-uncertainty penalty        0.53          0.81            36.13                   7.18         -0.05     0.03            0.02        1397.13          1.27            107.42
+
+COST SENSITIVITY (test)
+ bps_per_leg  threshold_net_SR  optimizer_net_SR  threshold_turnover  optimizer_turnover
+         0.0              0.91              0.92              118.18              233.20
+         1.0              0.70              0.65              118.18               84.85
+         2.5              0.38              0.53              118.18               36.87
+         5.0             -0.14              0.50              118.18               11.87
+        10.0             -1.19              1.05              118.18                2.20
+
+FRONTIER (test)
+ tc_mult  sharpe_net  sharpe_gross  turnover_annual
+     0.5        0.11          0.89           113.41
+     1.0        0.38          0.89            71.88
+     2.0        0.53          0.81            36.87
+     4.0        0.63          0.77            11.87
+[ 2539s] done

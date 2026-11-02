@@ -1,0 +1,56 @@
+panel 2520 x 300 | train (130, 1259) | test (1259, 2519)
+alpha model (train): mean H-day residual return by s-bucket, in sigma_eq units
+ s_lo  s_hi       n  mean_H_day_return_in_sigma_eq    se
+ -6.0  -4.0  1805.0                         -0.012 0.011
+ -4.0  -3.0   957.0                         -0.010 0.019
+ -3.0  -2.5  1066.0                          0.002 0.034
+ -2.5  -2.0  3324.0                          0.074 0.025
+ -2.0  -1.5 11999.0                          0.103 0.014
+ -1.5  -1.0 29233.0                          0.087 0.008
+ -1.0  -0.5 48015.0                          0.063 0.006
+ -0.5   0.0 62134.0                          0.062 0.005
+  0.0   0.5 64615.0                          0.011 0.005
+  0.5   1.0 51675.0                         -0.007 0.006
+  1.0   1.5 31211.0                         -0.007 0.008
+  1.5   2.0 12225.0                         -0.041 0.013
+  2.0   2.5  3235.0                         -0.012 0.026
+  2.5   3.0   901.0                          0.013 0.041
+  3.0   4.0   753.0                          0.028 0.022
+  4.0   6.0  1418.0                          0.045 0.014
+train best: lam=0.5 tc=0.5 net SR 1.13 (214s)
+ablation done (447s)
+cost sensitivity done (1000s)
+
+OUT-OF-SAMPLE ABLATION (2.5 bps/leg)
+                                             sharpe_net  sharpe_gross  turnover_annual  breakeven_bps_per_leg  max_drawdown  ann_vol  avg_positions  solve_ms_per_day
+strategy                                                                                                                                                             
+Threshold rule (paper baseline)                    0.94          1.45           141.83                   7.09         -0.07     0.07          94.21              0.06
+Linear in alpha (no optimizer)                     0.64          1.63           211.48                   4.13         -0.07     0.05         289.97              0.15
+Optimizer, cost-unaware                            1.06          2.10           294.23                   5.02         -0.12     0.07         128.59             18.15
+Optimizer + costs, diagonal cov                    1.50          2.27           226.97                   7.35         -0.09     0.07         133.35             14.53
+Optimizer + costs, sample cov                      1.25          2.07           230.39                   6.31         -0.12     0.07         118.07             38.15
+Optimizer + costs, Ledoit-Wolf cov                 1.42          2.21           227.61                   7.02         -0.09     0.07         143.79             42.23
+Optimizer + costs, PCA/Marchenko-Pastur cov        1.41          2.22           229.33                   6.80         -0.09     0.07         133.16             22.03
+  + alpha-uncertainty penalty                      1.53          2.33           218.80                   7.25         -0.08     0.07         118.81             21.97
+  + 5% ex-ante vol cap                             1.27          2.33           238.92                   5.50         -0.07     0.06         162.94             55.79
+  + 50% daily turnover cap                         1.50          1.96           126.03                  10.57         -0.09     0.07         114.19             52.00
+
+COST SENSITIVITY (test)
+ bps_per_leg  threshold_net_SR  optimizer_net_SR  threshold_turnover  optimizer_turnover  optimizer_tc_mult
+        0.00              1.45              2.10              141.83              294.23               4.00
+        1.00              1.25              1.96              141.83              209.08               2.00
+        2.50              0.94              1.41              141.83              229.33               0.50
+        5.00              0.43              1.24              141.83              125.46               2.00
+       10.00             -0.60              0.33              141.83              125.46               1.00
+
+FRONTIER (test)
+ tc_mult  sharpe_net  sharpe_gross  turnover_annual
+    0.00        1.06          2.10           294.23
+    0.25        1.23          2.14           254.10
+    0.50        1.41          2.22           229.33
+    1.00        1.52          2.23           198.24
+    1.50        1.52          2.15           177.39
+    2.00        1.57          2.15           162.17
+    3.00        1.74          2.25           140.79
+
+total 1145s

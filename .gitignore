@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+results/synthetic_signals.npz
+results_yahoo/
